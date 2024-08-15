@@ -5,19 +5,22 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveU
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from send_mail_app.tasks import send_mail_function
 
 from recipe.models import Recipe
 from .models import Profile
 from recipe.serializers import RecipeSerializer
 from . import serializers
 
+from .tasks import test_func
 
 User = get_user_model()
 
 
 class UserRegisterationAPIView(GenericAPIView):
     """
-    An endpoint for the client to create a new User. 
+    An endpoint for the client to create a new User.
     """
     permission_classes = (AllowAny,)
     serializer_class = serializers.UserRegisterationSerializer
@@ -148,3 +151,11 @@ class PasswordChangeAPIView(UpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+def test(request):
+    test_func.delay()
+    return HttpResponse('DONE')
+
+def send_mail_to_all(request):
+    send_mail_function.delay()
+    return HttpResponse('sent')
