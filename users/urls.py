@@ -20,4 +20,6 @@ urlpatterns = [
          name='user-bookmark'),
     path('password/change/', views.PasswordChangeAPIView.as_view(),
          name='change-password'),
+    path('dummyTask/', views.test, name='test'),
+    path('sendmails/', views.send_mail_to_all, name='sendMail')
 ]
