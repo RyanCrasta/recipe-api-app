@@ -197,11 +197,11 @@ DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 3  # in hours
 
 #CELERY SETTINGS
 CELERY_BROKER_URL = config("REDIS_URL")
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
+accept_content = ['application/json']
+result_serializer = 'json'
 CELERY_TIME_ZONE = ' Asia/Kolkata'
 
-CELERY_RESULT_BACKEND = 'django-db'
+result_backend = 'django-db'
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
