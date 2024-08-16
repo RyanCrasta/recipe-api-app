@@ -11,6 +11,6 @@ def send_mail_function(self):
         message = "assignment submission"
         to_email = user.email
         send_mail(subject=mail_subject, message=message, from_email=settings.EMAIL_HOST_USER,
-                  recipient_list=[to_email], fail_silently=True)
+                  recipient_list=[to_email], fail_silently=False)
 
     return 'MAIL SENT DONE'
