@@ -1,2 +1,2 @@
 web: python manage.py migrate && gunicorn config.wsgi
-worker: ./start_worker.sh
+worker: celery -A config worker --loglevel=info --uid=nobody --gid=nogroup
