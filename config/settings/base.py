@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     # Local apps
     'users',
     'recipe',
+
+    'django_celery_beat',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
