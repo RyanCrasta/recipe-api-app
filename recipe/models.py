@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+from django.core.exceptions import ObjectDoesNotExist
 
 class RecipeCategory(models.Model):
     """
@@ -65,3 +66,17 @@ class RecipeLike(models.Model):
 
     def __str__(self):
         return self.user.username
+
+def get_recipe_details_by_user_id(userId):
+    try:
+        recipe = Recipe.objects.all().filter(author_id=userId).values('id', 'title')
+        return recipe
+    except ObjectDoesNotExist:
+        return None
+
+def get_number_of_likes_using_recipe_id(recipeId):
+    try:
+        number_of_likes = RecipeLike.objects.all().filter(recipe_id=recipeId).count()
+        return number_of_likes
+    except ObjectDoesNotExist:
+        return None
