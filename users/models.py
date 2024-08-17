@@ -2,11 +2,9 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from recipe.models import Recipe
-
 from .managers import CustomUserManager
-
+from django.core.exceptions import ObjectDoesNotExist
 
 class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
@@ -29,3 +27,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+def get_user_id_by_email(email):
+    try:
+        user = CustomUser.objects.get(email=email)
+        return user.id
+    except ObjectDoesNotExist:
+        return None
+    except CustomUser.MultipleObjectsReturned:
+        raise ValueError("Multiple users found with the same email")
