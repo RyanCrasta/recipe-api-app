@@ -7,37 +7,45 @@ from .models import Recipe, RecipeLike
 from .serializers import RecipeLikeSerializer, RecipeSerializer
 from .permissions import IsAuthorOrReadOnly
 
-
 class RecipeListAPIView(generics.ListAPIView):
     """
     Get: a collection of recipes
     """
-    queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = (AllowAny,)
     filterset_fields = ('category__name', 'author__username')
+    print("ryan's optimization number 1")
 
+    def get_queryset(self):
+        # Use select_related to optimize foreign key lookups
+        queryset = Recipe.objects.select_related('category', 'author').all()
+        return queryset
 
 class RecipeCreateAPIView(generics.CreateAPIView):
     """
     Create: a recipe
     """
-    queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = (IsAuthenticated,)
+    print("Create: a recipe ryan")
+
+    def get_queryset(self):
+        # Use select_related to optimize foreign key lookups
+        return Recipe.objects.select_related('category', 'author').all()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-
 
 class RecipeAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     Get, Update, Delete a recipe
     """
-    queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = (IsAuthorOrReadOnly,)
 
+    def get_queryset(self):
+        # Use select_related to optimize foreign key lookups
+        return Recipe.objects.select_related('category', 'author').all()
 
 class RecipeLikeAPIView(generics.CreateAPIView):
     """
