@@ -12,9 +12,7 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
-# Make the entrypoint script executable
-RUN chmod +x /app/entrypoint.sh
 
-EXPOSE 8000
+
 
 CMD ["sh", "entrypoint.sh"]
