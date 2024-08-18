@@ -1,8 +1,9 @@
-version: '3.8'
+name: my-docker-project
 
 services:
   app:
     build: .
+    image: my-app-image
     container_name: my-app-container
     command: /app/entrypoint.sh
     ports:
@@ -36,7 +37,7 @@ services:
       - redis_data:/data
 
   celery:
-    build: .
+    image: my-app-image
     container_name: my-celery-container
     command: celery -A config worker -E -l info
     volumes:
@@ -47,7 +48,7 @@ services:
       - app
 
   beat:
-    build: .
+    image: my-app-image
     container_name: my-beat-container
     command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
