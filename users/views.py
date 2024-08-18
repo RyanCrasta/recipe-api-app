@@ -13,7 +13,7 @@ from .models import Profile
 from recipe.serializers import RecipeSerializer
 from . import serializers
 
-from .tasks import test_func
+
 
 User = get_user_model()
 
