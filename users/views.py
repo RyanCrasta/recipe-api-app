@@ -90,7 +90,7 @@ class UserProfileAPIView(RetrieveUpdateAPIView):
     """
     Get, Update user profile
     """
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.select_related('user').all()
     serializer_class = serializers.ProfileSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -102,7 +102,7 @@ class UserAvatarAPIView(RetrieveUpdateAPIView):
     """
     Get, Update user avatar
     """
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.select_related('user').all()
     serializer_class = serializers.ProfileAvatarSerializer
     permission_classes = (IsAuthenticated,)
 
