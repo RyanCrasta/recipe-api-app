@@ -13,6 +13,3 @@ RUN pip install --upgrade pip && \
 COPY . .
 
 
-
-
-ENTRYPOINT ["entrypoint.sh"]
