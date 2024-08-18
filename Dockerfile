@@ -15,4 +15,4 @@ COPY . .
 
 
 
-CMD ["sh", "entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
