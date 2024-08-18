@@ -77,13 +77,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
+if(config('DJANGO_ENV') == 'local'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'postgres',
+            'PORT': 5432
+        }
     }
-}
-DATABASES['default'] = dj_database_url.parse(config('DB_URL'))
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_NAME'),
+        }
+    }
+    DATABASES['default'] = dj_database_url.parse(config('DB_URL'))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -196,7 +208,12 @@ SIMPLE_JWT = {
 DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 3  # in hours
 
 #CELERY SETTINGS
-CELERY_BROKER_URL = config("REDIS_URL")
+if(config('DJANGO_ENV') == 'local'):
+    CELERY_BROKER_URL = 'redis://redis:6379/0' #development
+else:
+    CELERY_BROKER_URL = config("REDIS_URL") #prod
+
+
 accept_content = ['application/json']
 result_serializer = 'json'
 CELERY_TIME_ZONE = ' Asia/Kolkata'
@@ -205,4 +222,3 @@ result_backend = 'django-db'
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
