@@ -1,14 +1,13 @@
 #!/bin/sh
 
-# Wait for PostgreSQL to be available
-until nc -z -v -w30 $POSTGRES_HOST 5432
-do
-  echo "Waiting for PostgreSQL database connection..."
-  sleep 1
-done
+set -e  # Exit immediately if a command exits with a non-zero status
 
-# Run Django management commands
-python manage.py makemigrations
-python manage.py migrate
-python manage.py collectstatic --noinput
-exec "$@"
+# Run Django database migrations
+python manage.py makemigrations --no-input
+python manage.py migrate --no-input
+
+# Collect static files (optional, if you're serving static files)
+python manage.py collectstatic --no-input
+
+# Start the Django server
+python manage.py runserver 0.0.0.0:8000
