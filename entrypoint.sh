@@ -10,4 +10,4 @@ python manage.py migrate --no-input
 python manage.py collectstatic --no-input
 
 # Start the Django server
-python manage.py runserver 0.0.0.0:8000
+python manage.py migrate && gunicorn config.wsgi
