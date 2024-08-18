@@ -151,11 +151,3 @@ class PasswordChangeAPIView(UpdateAPIView):
 
     def get_object(self):
         return self.request.user
-
-def test(request):
-    test_func.delay()
-    return HttpResponse('DONE')
-
-def send_mail_to_all(request):
-    send_mail_function.delay()
-    return HttpResponse('sent')
