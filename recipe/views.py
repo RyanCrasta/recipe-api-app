@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .models import Recipe, RecipeLike
 from .serializers import RecipeLikeSerializer, RecipeSerializer
 from .permissions import IsAuthorOrReadOnly
+from rest_framework.pagination import PageNumberPagination
 
 class RecipePagination(PageNumberPagination):
     page_size = 2  # Number of items per page
