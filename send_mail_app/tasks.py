@@ -20,7 +20,6 @@ def send_mail_function(self):
 
         for index in range(len(recipes_details)):
             nos_of_likes = get_number_of_likes_using_recipe_id(recipes_details[index]['id'])
-            print('particular recipe', recipes_details[index]['id'], recipes_details[index]['title'], nos_of_likes)
             if(nos_of_likes == 1):
                 email_message = email_message + f"{index+1} ) Your {recipes_details[index]['title']} recipe got {nos_of_likes} like\n"
             else:
