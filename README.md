@@ -10,8 +10,6 @@
 
 # Test coverage report
 
-1) Recipe
-![recipe-test-coverage](https://github.com/user-attachments/assets/b19a2ccf-47e7-40b6-86b6-7ee35ee81b74)
+1) Recipe ![recipe-test-coverage](https://github.com/user-attachments/assets/b19a2ccf-47e7-40b6-86b6-7ee35ee81b74)
 
-2) Users
-![users-test](https://github.com/user-attachments/assets/9ac37c0e-3474-40f5-a08d-24e26226a2c4)
+2) Users ![users-test](https://github.com/user-attachments/assets/9ac37c0e-3474-40f5-a08d-24e26226a2c4)
