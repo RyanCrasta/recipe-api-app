@@ -7,14 +7,19 @@ from .models import Recipe, RecipeLike
 from .serializers import RecipeLikeSerializer, RecipeSerializer
 from .permissions import IsAuthorOrReadOnly
 
+class RecipePagination(PageNumberPagination):
+    page_size = 2  # Number of items per page
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
 class RecipeListAPIView(generics.ListAPIView):
     """
-    Get: a collection of recipes
+    A viewset for viewing and editing recipe instances.
     """
     serializer_class = RecipeSerializer
     permission_classes = (AllowAny,)
+    pagination_class = RecipePagination
     filterset_fields = ('category__name', 'author__username')
-    print("ryan's optimization number 1")
 
     def get_queryset(self):
         # Use select_related to optimize foreign key lookups
@@ -27,7 +32,6 @@ class RecipeCreateAPIView(generics.CreateAPIView):
     """
     serializer_class = RecipeSerializer
     permission_classes = (IsAuthenticated,)
-    print("Create: a recipe ryan")
 
     def get_queryset(self):
         # Use select_related to optimize foreign key lookups
